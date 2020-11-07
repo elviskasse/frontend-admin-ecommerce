@@ -4,6 +4,7 @@ class Ecommerce {
         this.api_key = "API_KEY=adsffsdfds6b-6727-46f4-8bee-2c6ce6293e41";
         this.api = "http://localhost/ecommerce/backend/api/";
         this.actions = ['orders', 'users', 'category', 'products'];
+        this.data = [];
         this.initRouter();
         this.initDataApp();
     }
@@ -46,14 +47,17 @@ class Ecommerce {
                     }
                 }).then((response) => {
                     if (response.status == 200) {
-                        localStorage.setItem(action, JSON.stringify(response.result));
+                        this.data.push({ name: action, data: response.result });
+                        //localStorage.setItem(action, JSON.stringify(response.result));
                     }
                 })
         })
     }
 
-    getData(entity) {
-        return JSON.parse(localStorage.getItem(entity)) ? JSON.parse(localStorage.getItem(entity)) : [];
+    getData(action) {
+        var object = this.data.find(element => element.name == action);
+        return object.data;
+        //return JSON.parse(localStorage.getItem(entity)) ? JSON.parse(localStorage.getItem(entity)) : [];
     }
 
     loadProducts() {
