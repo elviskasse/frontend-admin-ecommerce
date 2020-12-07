@@ -1,36 +1,33 @@
-API_KEY = "API_KEY=adsffsdfds6b-6727-46f4-8bee-2c6ce6293e41";
+API_KEY = "adsffsdfds6b-6727-46f4-8bee-2c6ce6293e41";
 API = "http://localhost/ecommerce/backend/api/";
 API_UPLOAD_IMAGE= "http://localhost/ecommerce/backend/api/uploadImage.php";
 
 
 addProduct = () => {
 
-  const imageName = localStorage.getItem("image").split("\\")[2];
-  const newProduct = {
-            name: localStorage.getItem("name"),
-            description: localStorage.getItem("description"),
-            price: localStorage.getItem("price"),
-            stock: localStorage.getItem("stock"),
-            category: localStorage.getItem("category"),
-            image: imageName
-        }
+   let formProduct = document.getElementById("formProduct");
 
-    localStorage.clear();
+   let data = new FormData(formProduct);
+   let fileProduct = data.get("image");
+   data.set("image", data.get("image").name)
 
-    let params = constructURLParams(newProduct);
-    const url = API + 'products?' + params + API_KEY;
+   data.append("API_KEY",API_KEY);
 
-    fetch(url, { method: "POST" })
-        .then((response) => {
+    const url = API + 'products';
+
+    fetch(url,
+      { method: "POST",
+        body: data}
+      ).then((response) => {
             if (response.ok) {
-                uploadImage();
-                document.getElementById("formProduct").reset();
                 return response.json();
             }
         })
         .then((response) => {
             if (response.status == 200) {
                 console.log(response.result);
+                uploadImage(fileProduct);
+                document.getElementById("formProduct").reset();
                 document.getElementsByClassName("close")[0].click();
             } else {
                 console.log(response.message);
@@ -46,11 +43,11 @@ constructURLParams = (object) => {
     return result;
 }
 
-uploadImage = () => {
+uploadImage = (file) => {
 
   let data = new FormData();
-  data.append("image", document.querySelector('#fileUpload').files[0]);
-  data.append("API_KEY", "adsffsdfds6b-6727-46f4-8bee-2c6ce6293e41");
+  data.append("image", file);
+  data.append("API_KEY", API_KEY);
 
   fetch(API_UPLOAD_IMAGE, {
     method: "POST",

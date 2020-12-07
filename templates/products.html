@@ -17,7 +17,7 @@
                     <th>Price</th>
                     <th>Stock</th>
                     <th>Created At</th>
-                  
+
                 </tr>
             </thead>
             <tfoot>
@@ -55,7 +55,7 @@
                     <div class="form-row">
                         <div class="col">
                             <label for="name">Name : </label>
-                            <input onchange="localStorage.setItem(this.name, this.value)" name="name" type="text" class="form-control" required>
+                            <input  name="name" type="text" class="form-control" required>
 
                             <span class="">This field is required</span>
 
@@ -64,21 +64,21 @@
                     <div class="form-row">
                         <div class="col">
                             <label for="description">Description : </label>
-                            <textarea onchange="localStorage.setItem(this.name, this.value)" name="description" cols="30" rows="10" class="form-control" required></textarea>
+                            <textarea  name="description" cols="30" rows="10" class="form-control" required></textarea>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col">
                             <label for="price">Price : </label>
-                            <input onchange="localStorage.setItem(this.name, this.value)" name="price" type="number" class="form-control" required>
+                            <input  name="price" type="number" class="form-control" required>
                         </div>
                         <div class="col">
                             <label for="stock">Stock : </label>
-                            <input onchange="localStorage.setItem(this.name, this.value)" name="stock" type="number" class="form-control" required>
+                            <input  name="stock" type="number" class="form-control" required>
                         </div>
                         <div class="col">
                             <label for="category">Category : </label>
-                            <select onchange="localStorage.setItem(this.name, this.value)" name="category" class="form-control" id="categoryProduct" required>
+                            <select  name="category" class="form-control" id="categoryProduct" required>
                                 <option >Open this select Category</option>
                                 <option value="1" selected>One</option>
                                 <option value="2">Two</option>
@@ -87,7 +87,7 @@
                         </div>
                         <div class="col">
                             <label for="image" >Image : </label>
-                            <input onchange="localStorage.setItem(this.name, this.value)" name="image" type="file" class="form-control" id="fileUpload" accept="image/*">
+                            <input  name="image" type="file" class="form-control" id="fileUpload" accept="image/*">
                         </div>
                     </div>
                 </form>
