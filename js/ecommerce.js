@@ -69,7 +69,8 @@ class Ecommerce {
                 { data: 'description' },
                 { data: 'price' },
                 { data: 'stock' },
-                { data: 'createdAt' }
+                { data: 'createdAt' },
+              
             ]
         });
     }
