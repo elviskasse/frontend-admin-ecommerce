@@ -35,6 +35,52 @@ addProduct = () => {
         })
 }
 
+updateProduct = (id,oldImageName) =>{
+
+  let formUpdateProduct = document.getElementById("formUpdateProduct-"+id);
+  let data = new FormData(formUpdateProduct);
+  data.append("API_KEY",API_KEY);
+  data.append("idProduct", id);
+
+  let imageToUpload = data.get("image");
+
+  if(imageToUpload.name !== ""){
+    data.set("image", imageToUpload.name);
+  }else{
+    data.set("image", oldImageName)
+  }
+
+  let dataValue = {};
+
+  for(var value of data.entries()){
+    dataValue[value[0]] = value[1];
+  }
+
+  const url = API + 'products?'+constructURLParams(dataValue);
+
+  fetch(url,{method: "PUT"})
+  .then((response)=>{
+    if(response.ok){
+      return response.json();
+    }else{
+      console.log("Erreur déclenchée lors de l'exécution de la requête de mise à jour du produit");
+    }
+  })
+  .then((result)=>{
+    if(result.status == 200){
+      if(imageToUpload.name !== ""){
+        uploadImage(imageToUpload);
+        deleteImage(oldImageName);
+      }
+      console.log(result.result);
+      document.getElementById("formUpdateProduct-"+id).reset();
+    }else{
+      console.log(result.message);
+    }
+  })
+
+
+}
 constructURLParams = (object) => {
     result = '';
     for (const property in object) {
@@ -63,5 +109,27 @@ uploadImage = (file) => {
       console.log(result.message);
     }
   })
+
+}
+
+deleteImage = (name) =>{
+  const url = API + 'image?name='+name+'&API_KEY='+API_KEY;
+
+  fetch(url, {method: 'DELETE'})
+  .then((response)=>{
+    if(response.ok){
+      return response.json();
+    }else{
+      console.log("Erreur déclenchée lors de l'exécution de la requête ");
+    }
+  })
+  .then((result)=>{
+    if(result.status == 200){
+      console.log(result.result);
+    }else{
+      console.log(result.message);
+    }
+  })
+
 
 }
