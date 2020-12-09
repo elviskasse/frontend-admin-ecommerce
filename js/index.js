@@ -72,8 +72,19 @@ updateProduct = (id,oldImageName) =>{
         uploadImage(imageToUpload);
         deleteImage(oldImageName);
       }
-      console.log(result.result);
-      document.getElementById("formUpdateProduct-"+id).reset();
+
+      var table = $("#dataTable").DataTable();
+      var products = table.rows().data();
+      var product = products.filter(element => element.idProduct == id)[0];
+      var index = products.indexOf(product);
+
+      product.name = dataValue.name;
+      product.description = dataValue.description;
+      product.price = dataValue.price;
+      product.stock = dataValue.stock;
+      product.category = dataValue.category;
+      product.image = dataValue.image;
+      $("#dataTable").dataTable().fnUpdate(product,index,undefined,false);
     }else{
       console.log(result.message);
     }
@@ -81,6 +92,7 @@ updateProduct = (id,oldImageName) =>{
 
 
 }
+
 constructURLParams = (object) => {
     result = '';
     for (const property in object) {

@@ -48,6 +48,7 @@ class Ecommerce {
                 }).then((response) => {
                     if (response.status == 200) {
                         this.data.push({ name: action, data: response.result });
+                        //console.log("load data");
                         //localStorage.setItem(action, JSON.stringify(response.result));
                     }
                 })
@@ -57,11 +58,13 @@ class Ecommerce {
     getData(action) {
         this.initDataApp();
         var object = this.data.find(element => element.name == action);
+        //console.log(object.data);
         return object.data;
         //return JSON.parse(localStorage.getItem(entity)) ? JSON.parse(localStorage.getItem(entity)) : [];
     }
 
     loadProducts() {
+
         var productsTable= $('#dataTable').DataTable({
             data: this.getData('products'),
             columns: [
@@ -132,7 +135,7 @@ class Ecommerce {
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    <button type="button" onclick="updateProduct(${id}, '${row.image}')" class="btn btn-primary">Update Product</button>
+                                    <button type="button" onclick="updateProduct(${id}, '${row.image}')" data-dismiss="modal" class="btn btn-primary">Update Product</button>
                                 </div>
                             </div>
                         </div>
