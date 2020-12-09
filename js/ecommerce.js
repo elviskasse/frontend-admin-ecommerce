@@ -80,6 +80,7 @@ class Ecommerce {
                 { data: 'idProduct',
                 render: function ( id, type, row ) {
                     return `<button type="button" data-toggle="modal" data-target="#updateProduct-${id}" class="btn btn-success">UPDATE</button>
+                            <button type="button" data-toggle="modal" data-target="#deleteProduct-${id}" class="btn btn-danger">DELETE</button>
 
                     <!-- Modal UPDATE PRODUCT-->
                     <div class="modal fade" id="updateProduct-${id}" tabindex="-1" aria-labelledby="updateProductModalLabel" aria-hidden="true">
@@ -136,6 +137,27 @@ class Ecommerce {
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                     <button type="button" onclick="updateProduct(${id}, '${row.image}')" data-dismiss="modal" class="btn btn-primary">Update Product</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal DELETE PRODUCT-->
+                    <div class="modal fade" id="deleteProduct-${id}" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h2 class="modal-title" id="deleteModalLabel">Confirmation message</h2>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to delete this product? We remind you that this action is irreversible!</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <button type="button" onclick="deleteProduct(${id})" data-dismiss="modal" class="btn btn-danger">Delete Product</button>
                                 </div>
                             </div>
                         </div>

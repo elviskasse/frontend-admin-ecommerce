@@ -25,8 +25,25 @@ addProduct = () => {
         })
         .then((response) => {
             if (response.status == 200) {
-                console.log(response.result);
+                console.log(response);
                 uploadImage(fileProduct);
+
+                var table = $("#dataTable").DataTable();
+                id = table.row(table.rows().data().length -1).data().idProduct+1;
+                console.log(id);
+                let product ={
+                  idProduct: id,
+                  name: data.get("name"),
+                  description: data.get("description"),
+                  price: data.get("price"),
+                  stock: data.get("stock"),
+                  image: data.get("image"),
+                  createdAt: new Date().toISOString().slice(0, 19).replace('T', ' '),
+                };
+
+                table.row.add(product).draw();
+
+
                 document.getElementById("formProduct").reset();
                 document.getElementsByClassName("close")[0].click();
             } else {
@@ -90,6 +107,35 @@ updateProduct = (id,oldImageName) =>{
     }
   })
 
+
+}
+
+deleteProduct = (id) =>{
+
+  const url = API + "products?id="+id+"&API_KEY="+API_KEY;
+
+  fetch(url,{method: "DELETE"})
+  .then((response)=>{
+    if(response.ok){
+      return response.json();
+    }else{
+      console.log("Erreur déclenchée lors de l'exécution de la requête de suppression du produit");
+    }
+  })
+  .then((result)=>{
+    if(result.status == 200){
+      var table = $("#dataTable").DataTable();
+      var products = table.rows().data();
+      var product = products.filter(element => element.idProduct == id)[0];
+      var index = products.indexOf(product);
+
+      $("#dataTable").dataTable().fnDeleteRow(index);
+      deleteImage(product.image);
+      console.log(result.result);
+    }else{
+      console.log(result.message);
+    }
+  })
 
 }
 
