@@ -23,13 +23,13 @@ class Ecommerce {
                         document.getElementsByClassName('container-fluid')[0].innerHTML = data;
                         if (action == 'products') {
                             this.loadProducts();
-                            document.getElementsByName("category").forEach((select, i) => {
+                            /*document.getElementsByName("category").forEach((select, i) => {
                               var option = "";
                               this.getData("category").forEach((item, i) => {
                                 option += "<option value='"+item.idCategory+"'>"+item.name+"</option>"
                               });
                               select.innerHTML=option;
-                            });
+                            });*/
 
                         } else if (action == 'category') {
                             this.loadCategory();
@@ -64,15 +64,23 @@ class Ecommerce {
     }
 
     getData(action) {
-        this.initDataApp();
         var object = this.data.find(element => element.name == action);
-        //console.log(object.data);
         return object.data;
         //return JSON.parse(localStorage.getItem(entity)) ? JSON.parse(localStorage.getItem(entity)) : [];
     }
 
-    loadProducts() {
+    getOptions(){
+      var options = "";
+      this.getData("category").forEach((item, i) => {
+        options += "<option value='"+item.idCategory+"'>"+item.name+"</option>"
+      });
+      return options;
+    }
 
+
+
+    loadProducts() {
+        var categories = this.getData('category');
         var productsTable= $('#dataTable').DataTable({
             data: this.getData('products'),
             columns: [
@@ -87,6 +95,15 @@ class Ecommerce {
                 { data: 'createdAt' },
                 { data: 'idProduct',
                 render: function ( id, type, row ) {
+                      var options = "";
+                    
+                      categories.forEach((category) => {
+                        if(category.idCategory == row.Category){
+                          options += "<option value='"+category.idCategory+"' selected>"+category.name+"</option>";
+                        }else{
+                          options += "<option value='"+category.idCategory+"'>"+category.name+"</option>"
+                        }
+                      });
                     return `<button type="button" data-toggle="modal" data-target="#updateProduct-${id}" class="btn btn-success">UPDATE</button>
                             <button type="button" data-toggle="modal" data-target="#deleteProduct-${id}" class="btn btn-danger">DELETE</button>
 
@@ -128,11 +145,8 @@ class Ecommerce {
                                             </div>
                                             <div class="col">
                                                 <label for="category">Category : </label>
-                                                <select  name="category" value="${ row.category }" class="form-control" required>
-                                                    <option >Open this select Category</option>
-                                                    <option value="1" selected>One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
+                                                <select  name="category" class="form-control" required>
+                                                  ${ options }
                                                 </select>
                                             </div>
                                             <div class="col">

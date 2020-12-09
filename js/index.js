@@ -38,6 +38,7 @@ addProduct = () => {
                   description: data.get("description"),
                   price: data.get("price"),
                   stock: data.get("stock"),
+                  Category: data.get("category"),
                   image: data.get("image"),
                   createdAt: new Date().toISOString().slice(0, 19).replace('T', ' '),
                 }
@@ -98,7 +99,7 @@ updateProduct = (id,oldImageName) =>{
       product.description = dataValue.description;
       product.price = dataValue.price;
       product.stock = dataValue.stock;
-      product.category = dataValue.category;
+      product.Category = dataValue.category;
       product.image = dataValue.image;
       $("#dataTable").dataTable().fnUpdate(product,index,undefined,false);
     }else{
