@@ -23,13 +23,13 @@ class Ecommerce {
                         document.getElementsByClassName('container-fluid')[0].innerHTML = data;
                         if (action == 'products') {
                             this.loadProducts();
-                            /*document.getElementsByName("category").forEach((select, i) => {
+                            document.querySelectorAll(".category").forEach((select, i) => {
                               var option = "";
                               this.getData("category").forEach((item, i) => {
                                 option += "<option value='"+item.idCategory+"'>"+item.name+"</option>"
                               });
-                              select.innerHTML=option;
-                            });*/
+                              select.innerHTML += option;
+                            });
 
                         } else if (action == 'category') {
                             this.loadCategory();
@@ -96,7 +96,7 @@ class Ecommerce {
                 { data: 'idProduct',
                 render: function ( id, type, row ) {
                       var options = "";
-                    
+
                       categories.forEach((category) => {
                         if(category.idCategory == row.Category){
                           options += "<option value='"+category.idCategory+"' selected>"+category.name+"</option>";
