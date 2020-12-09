@@ -23,6 +23,14 @@ class Ecommerce {
                         document.getElementsByClassName('container-fluid')[0].innerHTML = data;
                         if (action == 'products') {
                             this.loadProducts();
+                            document.getElementsByName("category").forEach((select, i) => {
+                              var option = "";
+                              this.getData("category").forEach((item, i) => {
+                                option += "<option value='"+item.idCategory+"'>"+item.name+"</option>"
+                              });
+                              select.innerHTML=option;
+                            });
+
                         } else if (action == 'category') {
                             this.loadCategory();
                         } else if (action == 'users') {
