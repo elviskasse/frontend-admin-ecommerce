@@ -104,8 +104,8 @@ class Ecommerce {
                           options += "<option value='"+category.idCategory+"'>"+category.name+"</option>"
                         }
                       });
-                    return `<button type="button" data-toggle="modal" data-target="#updateProduct-${id}" class="btn btn-success">UPDATE</button>
-                            <button type="button" data-toggle="modal" data-target="#deleteProduct-${id}" class="btn btn-danger">DELETE</button>
+                    return `<button type="button" data-toggle="modal" data-target="#updateProduct-${id}" class="btn btn-sm btn-success">UPDATE</button>
+                            <button type="button" data-toggle="modal" data-target="#deleteProduct-${id}" class="btn btn-sm btn-danger">DELETE</button>
 
                     <!-- Modal UPDATE PRODUCT-->
                     <div class="modal fade" id="updateProduct-${id}" tabindex="-1" aria-labelledby="updateProductModalLabel" aria-hidden="true">
