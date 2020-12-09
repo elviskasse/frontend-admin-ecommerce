@@ -29,9 +29,10 @@ addProduct = () => {
                 uploadImage(fileProduct);
 
                 var table = $("#dataTable").DataTable();
-                id = table.row(table.rows().data().length -1).data().idProduct+1;
-                console.log(id);
-                let product ={
+                var tableLenth = table.rows().data().length;
+                var id = table.row(tableLenth - 1).data()["idProduct"] +1;
+
+                let product = {
                   idProduct: id,
                   name: data.get("name"),
                   description: data.get("description"),
@@ -39,10 +40,8 @@ addProduct = () => {
                   stock: data.get("stock"),
                   image: data.get("image"),
                   createdAt: new Date().toISOString().slice(0, 19).replace('T', ' '),
-                };
-
+                }
                 table.row.add(product).draw();
-
 
                 document.getElementById("formProduct").reset();
                 document.getElementsByClassName("close")[0].click();
